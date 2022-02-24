@@ -14,3 +14,6 @@ export interface ILoginParams {
 export interface ILoginApi {
   login: (params: ILoginParams) => Promise<any>
 }
+export interface ILogoutApi {
+  logout: () => Promise<any>
+}
