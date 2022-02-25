@@ -1,14 +1,18 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 10:53:07
- * @LastEditTime: 2022-02-23 17:12:48
+ * @LastEditTime: 2022-02-25 14:09:51
  * @LastEditors: Zzz1z
  * @Description:
- * @FilePath: \dk-system-vue3_ts\vite.config.ts
+ * @FilePath: \vue3_vite_ts_pinia_template\vite.config.ts
  *
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 import { resolve } from 'path'
 
 // https://vitejs.dev/config/
@@ -28,7 +32,15 @@ export default defineConfig({
       }
     }
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    AutoImport({
+      resolvers: [ElementPlusResolver()]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()]
+    })
+  ],
   build: {
     terserOptions: {
       compress: {

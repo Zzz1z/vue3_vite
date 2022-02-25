@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:27:57
- * @LastEditTime: 2022-02-24 15:01:37
+ * @LastEditTime: 2022-02-25 10:13:01
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\router\index.ts
@@ -76,6 +76,14 @@ export const asyncRouterMap: Array<AsyncRoutesMap> = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  // 在页面之间导航时控制滚动的函数
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  }
 })
 export default router

@@ -1,15 +1,15 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 15:54:39
- * @LastEditTime: 2022-02-23 15:54:40
+ * @LastEditTime: 2022-02-25 15:58:25
  * @LastEditors: Zzz1z
  * @Description:
- * @FilePath: vue3_ts\src\api\type.ts
+ * @FilePath: \vue3_vite_ts_pinia_template\src\api\types.ts
  *
  */
 export interface ILoginParams {
-  userName: string
-  password: string | number
+  account?: string
+  password?: string | number
 }
 export interface ILoginApi {
   login: (params: ILoginParams) => Promise<any>

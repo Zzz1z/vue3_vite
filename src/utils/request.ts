@@ -1,10 +1,10 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:59:37
- * @LastEditTime: 2022-02-23 16:34:49
+ * @LastEditTime: 2022-02-25 15:57:16
  * @LastEditors: Zzz1z
  * @Description:
- * @FilePath: vue3_ts\src\utils\request.ts
+ * @FilePath: \vue3_vite_ts_pinia_template\src\utils\request.ts
  *
  */
 
@@ -69,7 +69,7 @@ interface ResType<T> {
 
 interface Http {
   get<T>(url: string, params?: unknown): Promise<ResType<T>>
-  post<T>(url: string, params?: unknown): Promise<ResType<T>>
+  post<T>(url: string, data?: unknown): Promise<ResType<T>>
 }
 
 const http: Http = {
@@ -89,11 +89,11 @@ const http: Http = {
         })
     })
   },
-  post (url, params) {
+  post (url, data) {
     return new Promise((resolve, reject) => {
       NProgress.start()
       request
-        .get(url, { params })
+        .post(url, data)
         .then(res => {
           resolve(res)
         })
