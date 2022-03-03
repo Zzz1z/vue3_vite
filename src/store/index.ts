@@ -1,23 +1,24 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:26:27
- * @LastEditTime: 2022-02-25 13:41:49
+ * @LastEditTime: 2022-03-03 16:26:42
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\store\index.ts
  *
  */
 import { defineStore } from 'pinia'
-import { login, logout, getAuthInfo } from '@/api/login'
+import { logout, getAuthInfo } from '@/api/login'
 import { deepCopy } from '@/utils/util'
-import { asyncRouterMap } from '@/router/index'
+import { asyncRouterMap } from '@/router'
 
-function filterAsyncRouter (routerMap: any, roles: any) {
+function filterAsyncRouter (routerMap: any, authInfo: any) {
   let asyncRouterMap = deepCopy(routerMap)
+  const permissionList = authInfo.map(auth => auth.url)
   const accessedRouters = asyncRouterMap.filter(route => {
-    if (hasPermission(roles.permissionList, route)) {
+    if (hasPermission(permissionList, route)) {
       if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
+        route.children = filterAsyncRouter(route.children, authInfo)
       }
       return true
     }
@@ -49,7 +50,7 @@ function hasPermission (permission: any, route: any) {
 export const useMainStore = defineStore({
   id: 'main',
   state: () => ({
-    name: '超级管理员',
+    token: '',
     userInfo: {
       id: null,
       authInfo: []
@@ -58,13 +59,12 @@ export const useMainStore = defineStore({
   }),
   // getters
   getters: {
-    nameLen: state => state.name.length,
     asyncRouterMap: state => state.addRouters
   },
   // actions
   actions: {
-    updateName (name: string) {
-      this.name = name
+    updateToken (token: string) {
+      this.token = token
     },
     getAuthInfo () {
       return new Promise(resolve => {
@@ -77,10 +77,9 @@ export const useMainStore = defineStore({
           })
       })
     },
-    generateRoutes (roles: any) {
+    generateRoutes (auth_info: any) {
       return new Promise(resolve => {
-        // const { roles } = data
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+        const accessedRouters = filterAsyncRouter(asyncRouterMap, auth_info)
         this.addRouters = accessedRouters
         resolve(accessedRouters)
       })

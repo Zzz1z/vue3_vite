@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:27:57
- * @LastEditTime: 2022-02-25 10:13:01
+ * @LastEditTime: 2022-03-03 17:02:31
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\router\index.ts
@@ -12,7 +12,7 @@ import Layout from '@/views/layout/Layout.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: () => import('@/views/login/Login.vue')
   }
@@ -33,44 +33,19 @@ export const asyncRouterMap: Array<AsyncRoutesMap> = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Layout,
-    meta: { title: '工作台', icon: 'home' },
+    meta: { title: '工作台', icon: 'home', permission: 'ownerlist_investment' },
     hidden: false,
+    redirect: '/dashboard/work',
+    // redirect: { name: 'Work' },
     children: [
       {
-        path: 'work',
+        path: 'dashboard/work',
         name: 'Work',
         component: () => import('@/views/work/Work.vue'),
-        // redirect: { name: 'WorkList' },
-        meta: { title: '业务', icon: '' },
+        meta: { title: '业务', icon: '', permission: 'ownerlist_investment' },
         hidden: false
       }
     ]
-    // children: [
-    //   {
-    //     path: 'work',
-    //     name: 'Work',
-    //     component: () => import('@/views/work/index.vue'),
-    //     redirect: { name: 'WorkList' },
-    //     meta: { title: '业务', icon: '' },
-    //     hidden: false,
-    //     children: [
-    //       {
-    //         path: 'workList',
-    //         name: 'WorkList',
-    //         component: () => import('@/views/work/list.vue'),
-    //         meta: { title: '业务列表', permission: ['interspace'] },
-    //         hidden: true
-    //       },
-    //       {
-    //         path: 'detail',
-    //         name: 'Detail',
-    //         component: () => import('@/views/work/detail.vue'),
-    //         meta: { title: '业务详情', permission: ['interspace'] },
-    //         hidden: true
-    //       }
-    //     ]
-    //   }
-    // ]
   }
 ]
 

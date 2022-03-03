@@ -1,7 +1,7 @@
 <!--
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:39:28
- * @LastEditTime: 2022-02-25 15:58:41
+ * @LastEditTime: 2022-03-03 17:02:44
  * @LastEditors: Zzz1z
  * @Description: 
  * @FilePath: \vue3_vite_ts_pinia_template\src\views\login\Login.vue
@@ -9,24 +9,27 @@
 -->
 <template>
   <div class="login-wrap">
-    <el-form
-      class="form"
-      ref="ruleFormRef"
-      :rules="rules"
-      :model="form"
-      label-width="120px"
-    >
+    <el-form class="form" ref="ruleFormRef" :rules="rules" :model="form">
+      <h3 class="title">用户登录</h3>
       <el-form-item label="账号" prop="account">
-        <el-input v-model="form.account"></el-input>
+        <el-input placeholder="请输入账号..." v-model="form.account"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password"></el-input>
+        <el-input
+          v-model="form.password"
+          type="password"
+          placeholder="请输入密码..."
+          show-password
+        />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit(ruleFormRef)"
-          >Create</el-button
+        <el-button
+          class="login-btn"
+          type="primary"
+          @click.prevent="onSubmit(ruleFormRef)"
         >
-        <el-button>Cancel</el-button>
+          登录
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -34,10 +37,13 @@
 <script setup lang="ts">
 import { useMainStore } from '@/store'
 import { login } from '@/api/login'
-import { onMounted } from 'vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, getCurrentInstance } from 'vue'
+import { saveToLocal, getStorage } from '@/utils/storage'
+import { useRouter } from 'vue-router'
 
 const mainStore = useMainStore()
+const { proxy }: any = getCurrentInstance()
+const router = useRouter()
 const form = reactive({
   account: '',
   password: ''
@@ -51,42 +57,50 @@ const rules = reactive({
     { required: true, message: '请输入密码...', trigger: ['blur', 'change'] }
   ]
 })
-
-// onMounted(() => {
-//   console.log('123321')
-// })
-
-const onClick = () => {
-  // mainStore.$patch({
-  //   name: '我也不知道叫什么好~'
-  // })
-  mainStore.updateName('123321')
-}
 const onSubmit = formEl => {
   if (!formEl) return
   formEl.validate(async valid => {
     if (valid) {
+      // @ts-ignore
       const result = await login(form)
-      console.log(result, '123')
+      if (result.code === proxy.$SUCCESS_CODE) {
+        const { token }: any = result.data ?? ''
+        mainStore.updateToken(token)
+        mainStore.getAuthInfo()
+        saveToLocal('ACCESS_TOKEN', token)
+        proxy.$message.success('登录成功')
+        router.push('/dashboard/work')
+      }
     }
   })
-
-  // console.log(formEl, 'EL')
-  // formEl: FormInstance | undefined
 }
 </script>
 <style lang="less">
 .login-wrap {
   width: 100vw;
   height: 100vh;
-  position: relative;
-  // padding-top: 200px;
-  // background-color: @primary-color;
+  background: #ccc url('../../assets/images/logo.jpg') no-repeat center;
+  .title {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
   .form {
+    width: 328px;
+    height: 318px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    border-radius: 2px;
+    padding: 0 20px;
+    padding-top: 80px;
     position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%);
+    right: 120px;
+    top: 300px;
+    background-color: #fff;
+    .login-btn {
+      width: 100%;
+      margin-top: 20px;
+    }
   }
 }
 </style>

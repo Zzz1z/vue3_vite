@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:59:37
- * @LastEditTime: 2022-02-25 15:57:16
+ * @LastEditTime: 2022-02-28 17:37:25
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\utils\request.ts
@@ -11,6 +11,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { getStorage } from '@/utils/storage'
 import { ElNotification } from 'element-plus'
+import 'element-plus/theme-chalk/el-notification.css'
 import NProgress from 'nprogress'
 import router from '../router'
 
@@ -28,6 +29,7 @@ const request = axios.create({
 request.interceptors.request.use(
   (config): AxiosRequestConfig<any> => {
     const token = getStorage('ACCESS_TOKEN')
+
     // 如果 token 存在
     // 让每个请求携带自定义 token 请根据实际情况自行修改
     if (token) {
