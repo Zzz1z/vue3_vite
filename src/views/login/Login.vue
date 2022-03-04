@@ -1,7 +1,7 @@
 <!--
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:39:28
- * @LastEditTime: 2022-03-03 17:02:44
+ * @LastEditTime: 2022-03-04 10:10:40
  * @LastEditors: Zzz1z
  * @Description: 
  * @FilePath: \vue3_vite_ts_pinia_template\src\views\login\Login.vue
@@ -69,7 +69,7 @@ const onSubmit = formEl => {
         mainStore.getAuthInfo()
         saveToLocal('ACCESS_TOKEN', token)
         proxy.$message.success('登录成功')
-        router.push('/dashboard/work')
+        router.push({ path: '/' })
       }
     }
   })

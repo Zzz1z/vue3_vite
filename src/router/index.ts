@@ -30,7 +30,7 @@ interface AsyncRoutesMap {
 
 export const asyncRouterMap: Array<AsyncRoutesMap> = [
   {
-    path: '/dashboard',
+    path: '/',
     name: 'Dashboard',
     component: Layout,
     meta: { title: '工作台', icon: 'home', permission: 'ownerlist_investment' },
