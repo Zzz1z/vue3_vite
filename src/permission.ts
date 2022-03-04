@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-24 11:45:12
- * @LastEditTime: 2022-03-04 10:17:54
+ * @LastEditTime: 2022-03-04 10:48:21
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\permission.ts
@@ -39,23 +39,15 @@ router.beforeEach(async (to, from, next) => {
         } else {
           const mainStore = useMainStore()
           if (mainStore.userInfo.authInfo.length === 0) {
-            mainStore.getAuthInfo().then((res): any => {
-              // @ts-ignore
-              const authInfo = res.data.auth_info
-              mainStore.userInfo.authInfo = authInfo
-              const accessedRouters = filterAsyncRouter(
-                asyncRouterMap,
-                authInfo
-              )
-              console.log(accessedRouters, 'accessedRouters')
-
-              accessedRouters.forEach((route: RouteRecordRaw) => {
-                console.log(route, 'route')
-                router.addRoute(route)
-              })
+            await mainStore.getAuthInfo()
+            const authInfo = mainStore.userInfo.authInfo
+            const accessedRouters = filterAsyncRouter(asyncRouterMap, authInfo)
+            accessedRouters.forEach((route: RouteRecordRaw) => {
+              router.addRoute(route)
             })
-            next({ ...to, replace: true })
+            NProgress.done()
             routeFlag = true
+            next({ ...to, replace: true })
           }
         }
       }

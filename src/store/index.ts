@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:26:27
- * @LastEditTime: 2022-03-03 16:26:42
+ * @LastEditTime: 2022-03-04 10:48:08
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\store\index.ts
@@ -9,8 +9,6 @@
  */
 import { defineStore } from 'pinia'
 import { logout, getAuthInfo } from '@/api/login'
-
-
 
 export const useMainStore = defineStore({
   id: 'main',
@@ -31,16 +29,18 @@ export const useMainStore = defineStore({
     updateToken (token: string) {
       this.token = token
     },
-    getAuthInfo () {
-      return new Promise(resolve => {
-        getAuthInfo()
-          .then(res => {
-            resolve(res)
-          })
-          .catch(err => {
-            resolve(err)
-          })
-      })
+    async getAuthInfo () {
+      // return new Promise(resolve => {
+      const res = await getAuthInfo()
+      // @ts-ignore
+      this.userInfo.authInfo = res.data.auth_info
+      // .then(res => {
+      // })
+      // resolve(res)
+      // .catch(err => {
+      //   resolve(err)
+
+      // })
     },
     // generateRoutes (auth_info: any) {
     //   return new Promise(resolve => {
