@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-24 11:45:12
- * @LastEditTime: 2022-03-04 10:48:21
+ * @LastEditTime: 2022-03-04 10:54:41
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\permission.ts
@@ -45,11 +45,11 @@ router.beforeEach(async (to, from, next) => {
             accessedRouters.forEach((route: RouteRecordRaw) => {
               router.addRoute(route)
             })
-            NProgress.done()
             routeFlag = true
             next({ ...to, replace: true })
           }
         }
+        NProgress.done()
       }
     } else {
       if (whiteRouterMap.indexOf(to.path) !== -1) {
