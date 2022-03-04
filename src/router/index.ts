@@ -36,7 +36,6 @@ export const asyncRouterMap: Array<AsyncRoutesMap> = [
     meta: { title: '工作台', icon: 'home', permission: 'ownerlist_investment' },
     hidden: false,
     redirect: '/dashboard/work',
-    // redirect: { name: 'Work' },
     children: [
       {
         path: 'dashboard/work',

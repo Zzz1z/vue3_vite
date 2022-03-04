@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-25 11:20:29
- * @LastEditTime: 2022-02-25 11:23:26
+ * @LastEditTime: 2022-03-04 11:43:37
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\utils\util.ts
@@ -40,7 +40,6 @@ export function deepCopy (obj: any, cache: any = []) {
 
   // 先把 copy 放到cache缓存中，在递归的时候引用它
   cache.push({ original: obj, copy })
-
   Object.keys(obj).forEach(key => {
     // @ts-ignore
     copy[key] = deepCopy(obj[key], cache)

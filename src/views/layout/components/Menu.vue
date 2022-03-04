@@ -1,0 +1,66 @@
+<!--
+ * @Author: Zzz1z
+ * @Date: 2022-03-04 13:53:24
+ * @LastEditTime: 2022-03-04 17:27:24
+ * @LastEditors: Zzz1z
+ * @Description: 左侧菜单栏
+ * @FilePath: \vue3_vite_ts_pinia_template\src\views\layout\components\Menu.vue
+ * 
+-->
+
+<template>
+  <el-menu
+    :default-active="defaultActive"
+    router
+    unique-opened
+    @open="handleOpen"
+    @close="handleClose"
+  >
+    <template v-for="item in routes" :key="item.path">
+      <el-sub-menu :index="item.path" v-if="item.children">
+        <template #title>
+          <img :src="item.meta.icon" alt="" />
+          <!-- <el-icon><item.icon></item.icon>></el-icon> -->
+          <span>{{ item.meta.title }}</span>
+        </template>
+        <el-menu-item
+          v-for="subItem in item.children"
+          :index="subItem.path"
+          :key="subItem.path"
+        >
+          <template #title>
+            <img :src="subItem.img" />
+            <span>{{ subItem.meta.title }}</span>
+          </template>
+        </el-menu-item>
+      </el-sub-menu>
+      <el-menu-item v-else :index="item.index">
+        <img :src="item.img" />
+        <template #title>{{ item.meta.title }}</template>
+      </el-menu-item>
+    </template>
+  </el-menu>
+</template>
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+const props = defineProps({
+  routes: {
+    type: Object
+  }
+})
+const route = useRoute()
+const defaultActive = computed(() => {
+  const { path } = route
+  return path
+})
+// watch(route => {
+// })
+// const emits = defineEmits(['sendEmit'])
+// const sendString = () => {
+//   emits('sendEmit', '123')
+// }
+
+const handleOpen = () => {}
+const handleClose = () => {}
+</script>

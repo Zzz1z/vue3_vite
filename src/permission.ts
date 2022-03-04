@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-24 11:45:12
- * @LastEditTime: 2022-03-04 10:54:41
+ * @LastEditTime: 2022-03-04 17:30:18
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\permission.ts
@@ -15,7 +15,7 @@ import { getStorage } from '@/utils/storage'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { RouteRecordRaw } from 'vue-router'
-import { filterAsyncRouter, hasPermission } from '@/utils/util'
+import { filterAsyncRouter } from '@/utils/util'
 
 const whiteRouterMap = ['/login'] // 白名单
 const defaultRoutePath = '/'
@@ -42,6 +42,7 @@ router.beforeEach(async (to, from, next) => {
             await mainStore.getAuthInfo()
             const authInfo = mainStore.userInfo.authInfo
             const accessedRouters = filterAsyncRouter(asyncRouterMap, authInfo)
+            mainStore.addRouters = accessedRouters
             accessedRouters.forEach((route: RouteRecordRaw) => {
               router.addRoute(route)
             })
