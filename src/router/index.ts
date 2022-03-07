@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:27:57
- * @LastEditTime: 2022-03-03 17:02:31
+ * @LastEditTime: 2022-03-07 15:03:29
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\router\index.ts
@@ -42,6 +42,17 @@ export const asyncRouterMap: Array<AsyncRoutesMap> = [
         name: 'Work',
         component: () => import('@/views/work/Work.vue'),
         meta: { title: '业务', icon: '', permission: 'ownerlist_investment' },
+        hidden: false
+      },
+      {
+        path: 'dashboard/detail',
+        name: 'Detail',
+        component: () => import('@/views/work/Work.vue'),
+        meta: {
+          title: '详情',
+          icon: '',
+          permission: 'ownerlist_investment'
+        },
         hidden: false
       }
     ]
