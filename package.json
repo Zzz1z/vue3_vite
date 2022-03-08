@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons": "^0.0.11",
     "axios": "^0.26.0",
     "element-plus": "^2.0.2",
     "esbuild-windows-64": "^0.14.23",

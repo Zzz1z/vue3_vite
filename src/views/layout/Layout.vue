@@ -1,26 +1,20 @@
 <!--
  * @Author: Zzz1z
  * @Date: 2022-02-24 10:06:03
- * @LastEditTime: 2022-03-07 17:56:34
+ * @LastEditTime: 2022-03-08 18:00:53
  * @LastEditors: Zzz1z
  * @Description: 
  * @FilePath: \vue3_vite_ts_pinia_template\src\views\layout\Layout.vue
  * 
 -->
 <template>
-  <!-- <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
-      </el-container>
-    </el-container> -->
-
   <div class="layout-wrap">
     <el-container class="layout-content">
-      <el-aside :width="isCollapse ? '60px' : '210px'">
+      <!-- <transition name="fade"> -->
+      <el-aside class="layout-aside" :width="isCollapse ? '60px' : '210px'">
         <Menu :routes="routes" :collapse="isCollapse" />
       </el-aside>
+      <!-- </transition> -->
       <el-container class="layout-page">
         <el-header class="layout-page-header">
           <Header @foldChange="handleFoldChange" />
@@ -54,12 +48,15 @@ const handleFoldChange = (isFold: boolean) => {
   left: 0;
   width: 100%;
   height: 100%;
-}
-.layout-content,
-.layout-page {
-  height: 100%;
-}
-.layout-page-content {
-  height: calc(100% - 48px);
+  .layout-content,
+  .layout-page {
+    height: 100%;
+  }
+  .layout-page-content {
+    height: calc(100% - 48px);
+  }
+  .layout-content {
+    display: flex;
+  }
 }
 </style>

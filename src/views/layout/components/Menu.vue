@@ -1,7 +1,7 @@
 <!--
  * @Author: Zzz1z
  * @Date: 2022-03-04 13:53:24
- * @LastEditTime: 2022-03-07 17:53:23
+ * @LastEditTime: 2022-03-08 16:40:43
  * @LastEditors: Zzz1z
  * @Description: 左侧菜单栏
  * @FilePath: \vue3_vite_ts_pinia_template\src\views\layout\components\Menu.vue
@@ -12,7 +12,7 @@
   <div class="logo-wrap">
     <div class="logo">
       <img class="img" src="@/assets/logo.png" alt="logo" />
-      <span v-if="!collapse" class="title">Vue3+TS</span>
+      <span v-if="!collapse" class="title">Ts+Vue3</span>
     </div>
     <el-menu
       :default-active="defaultActive"
@@ -89,5 +89,37 @@ const handleClose = () => {}
       color: white;
     }
   }
+  .el-menu {
+    border-right: none;
+  }
+
+  // 目录
+  .el-submenu {
+    background-color: @layout-color !important;
+    // 二级菜单 ( 默认背景 )
+    .el-menu-item {
+      padding-left: 50px !important;
+      background-color: #0c2135 !important;
+    }
+  }
+
+  ::v-deep .el-submenu__title {
+    background-color: @layout-color !important;
+  }
+
+  // hover 高亮
+  .el-menu-item:hover {
+    color: #fff !important; // 菜单
+  }
+
+  .el-menu-item.is-active {
+    color: #fff !important;
+    background-color: #0a60bd !important;
+  }
+}
+
+.el-menu-vertical:not(.el-menu--collapse) {
+  width: 100%;
+  height: calc(100% - 48px);
 }
 </style>
