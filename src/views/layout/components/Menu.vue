@@ -1,7 +1,7 @@
 <!--
  * @Author: Zzz1z
  * @Date: 2022-03-04 13:53:24
- * @LastEditTime: 2022-03-08 16:40:43
+ * @LastEditTime: 2022-03-09 16:40:40
  * @LastEditors: Zzz1z
  * @Description: 左侧菜单栏
  * @FilePath: \vue3_vite_ts_pinia_template\src\views\layout\components\Menu.vue
@@ -103,7 +103,7 @@ const handleClose = () => {}
     }
   }
 
-  ::v-deep .el-submenu__title {
+  .el-submenu__title /deep/ {
     background-color: @layout-color !important;
   }
 

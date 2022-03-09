@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:27:57
- * @LastEditTime: 2022-03-08 17:36:33
+ * @LastEditTime: 2022-03-09 16:45:01
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\router\index.ts
