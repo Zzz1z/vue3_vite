@@ -1,7 +1,7 @@
 <!--
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:39:28
- * @LastEditTime: 2022-03-04 10:10:40
+ * @LastEditTime: 2022-04-14 21:35:48
  * @LastEditors: Zzz1z
  * @Description: 
  * @FilePath: \vue3_vite_ts_pinia_template\src\views\login\Login.vue
@@ -61,16 +61,12 @@ const onSubmit = formEl => {
   if (!formEl) return
   formEl.validate(async valid => {
     if (valid) {
-      // @ts-ignore
-      const result = await login(form)
-      if (result.code === proxy.$SUCCESS_CODE) {
-        const { token }: any = result.data ?? ''
-        mainStore.updateToken(token)
-        mainStore.getAuthInfo()
-        saveToLocal('ACCESS_TOKEN', token)
-        proxy.$message.success('登录成功')
-        router.push({ path: '/' })
-      }
+      const token = 'ejjdasdjkhasjdhkasjhkdaskj'
+      mainStore.updateToken(token)
+      mainStore.getAuthInfo()
+      saveToLocal('ACCESS_TOKEN', token)
+      proxy.$message.success('登录成功')
+      router.push({ path: '/' })
     }
   })
 }

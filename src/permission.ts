@@ -1,65 +1,65 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-24 11:45:12
- * @LastEditTime: 2022-03-04 17:30:18
+ * @LastEditTime: 2022-04-14 21:39:57
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\permission.ts
  *
  */
 
-import router from './router/index'
-import { asyncRouterMap } from '@/router'
-import { useMainStore } from '@/store'
-import { getStorage } from '@/utils/storage'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-import { RouteRecordRaw } from 'vue-router'
-import { filterAsyncRouter } from '@/utils/util'
+import router from "./router/index";
+import { asyncRouterMap } from "@/router";
+import { useMainStore } from "@/store";
+import { getStorage } from "@/utils/storage";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { RouteRecordRaw } from "vue-router";
+import { filterAsyncRouter } from "@/utils/util";
 
-const whiteRouterMap = ['/login'] // 白名单
-const defaultRoutePath = '/'
+const whiteRouterMap = ["/login"]; // 白名单
+const defaultRoutePath = "/";
 
-NProgress.configure({ showSpinner: false }) // 进度环显示隐藏
-let routeFlag = false
+NProgress.configure({ showSpinner: false }); // 进度环显示隐藏
+let routeFlag = false;
 router.beforeEach(async (to, from, next) => {
-  NProgress.start()
+  NProgress.start();
   if (whiteRouterMap.indexOf(to.path) !== -1) {
-    next()
-    NProgress.done()
+    next();
+    NProgress.done();
   } else {
-    const token = getStorage('ACCESS_TOKEN') ?? null
+    const token = getStorage("ACCESS_TOKEN") ?? null;
     if (token) {
-      if (to.path === '/login') {
-        next({ path: defaultRoutePath })
-        NProgress.done()
+      if (to.path === "/login") {
+        next({ path: defaultRoutePath });
+        NProgress.done();
       } else {
         if (routeFlag) {
-          next()
+          next();
         } else {
-          const mainStore = useMainStore()
+          const mainStore = useMainStore();
           if (mainStore.userInfo.authInfo.length === 0) {
-            await mainStore.getAuthInfo()
-            const authInfo = mainStore.userInfo.authInfo
-            const accessedRouters = filterAsyncRouter(asyncRouterMap, authInfo)
-            mainStore.addRouters = accessedRouters
+            await mainStore.getAuthInfo();
+            const authInfo = mainStore.userInfo.authInfo;
+            const accessedRouters = filterAsyncRouter(asyncRouterMap, authInfo);
+            mainStore.addRouters = accessedRouters;
             accessedRouters.forEach((route: RouteRecordRaw) => {
-              router.addRoute(route)
-            })
-            routeFlag = true
-            next({ ...to, replace: true })
+              router.addRoute(route);
+            });
+            routeFlag = true;
+            next({ ...to, replace: true });
           }
         }
-        NProgress.done()
+        NProgress.done();
       }
     } else {
       if (whiteRouterMap.indexOf(to.path) !== -1) {
         // 在免登录白名单，直接进入
-        next()
+        next();
       } else {
-        next({ path: '/login' })
-        NProgress.done()
+        next({ path: "/login" });
+        NProgress.done();
       }
     }
   }
-})
+});

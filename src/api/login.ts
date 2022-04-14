@@ -11,11 +11,11 @@ import http from '@/utils/request'
 import * as T from './types'
 
 export const login = (params: T.ILoginApi) => {
-  return http.post('auth/account-login', params)
+  return http.post('login', params)
 }
 export const logout = () => {
-  return http.post('auth/logout')
+  return http.post('logout')
 }
 export const getAuthInfo = () => {
-  return http.get('sysauth/auth-info')
+  return http.get('info')
 }

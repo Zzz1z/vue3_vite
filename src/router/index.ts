@@ -1,7 +1,7 @@
 /*
  * @Author: Zzz1z
  * @Date: 2022-02-23 11:27:57
- * @LastEditTime: 2022-03-09 16:45:01
+ * @LastEditTime: 2022-04-14 21:35:06
  * @LastEditors: Zzz1z
  * @Description:
  * @FilePath: \vue3_vite_ts_pinia_template\src\router\index.ts
@@ -33,7 +33,7 @@ export const asyncRouterMap: Array<AsyncRoutesMap> = [
     path: '/',
     name: 'Dashboard',
     component: Layout,
-    meta: { title: '工作台', icon: 'home', permission: 'ownerlist_investment' },
+    meta: { title: '工作台', icon: 'home', permission: 'auth' },
     hidden: false,
     redirect: '/dashboard/work',
     children: [
@@ -41,7 +41,7 @@ export const asyncRouterMap: Array<AsyncRoutesMap> = [
         path: '/dashboard/work',
         name: 'Work',
         component: () => import('@/views/work/Work.vue'),
-        meta: { title: '业务', icon: '', permission: 'ownerlist_investment' },
+        meta: { title: '业务', icon: '', permission: 'auth' },
         hidden: false
       },
       {
@@ -51,7 +51,7 @@ export const asyncRouterMap: Array<AsyncRoutesMap> = [
         meta: {
           title: '详情',
           icon: '',
-          permission: 'ownerlist_investment'
+          permission: 'auth'
         },
         hidden: false
       }
